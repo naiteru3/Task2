@@ -25,7 +25,6 @@ class ProfileController extends Controller
 
       $profile = new Profile;
       $form = $request->all();
-
       
       if (isset($form['image'])) {
         $path = $request->file('image')->store('public/image');
@@ -33,28 +32,26 @@ class ProfileController extends Controller
       } else {
           $profile->image_path = null;
       }
-
      
       unset($form['_token']);
      
       unset($form['image']);
 
-
       $profile->fill($form);
       $profile->save();
-
-
+      
+      return redirect('admin/profile/create');
   }    
-
-
+  
     
-   
-
-    public function edit()
+    public function edit(Request $request)
     {
-        return view('admin.profile.edit');
-    }
-
+        $profile = Profile::find($request->id);
+      if (empty($profile)) {
+        abort(404);    
+      }
+      return view('admin.profile.edit', ['profile_form' => $profile]);
+  }
     public function update()
     {
         return redirect('admin/profile/edit');
