@@ -38,8 +38,6 @@ Route::get( 'admin','Admin\AAAController@bbb');
 /*課題　４*/
 
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 
